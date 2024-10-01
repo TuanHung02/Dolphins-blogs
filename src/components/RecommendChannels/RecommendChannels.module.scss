@@ -1,0 +1,57 @@
+.wrapper {
+    min-width: 558px;
+    box-sizing: border-box;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    padding:  8px 25px 8px 5px;
+    gap: 20px;
+    box-shadow: 5px 10px 18px #f1f1f1;
+  }
+  .channel-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+  .channel-item{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .post-reactions {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 9px;
+  }
+  .post-reaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(240, 243, 246, 1);
+    width: fit-content;
+    font-weight: 600;
+    font-size: 12px;
+    color: rgba(100, 116, 139, 1);
+    cursor: pointer;
+  }
+  .btn-follow{
+    border-radius: 16px;
+    background-color: rgba(108, 93, 211, 1);
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 4px;
+    width: 150px;
+    margin-left: 30px ;
+  }
+  .btn-follow:hover{
+    opacity: 0.8;
+  }

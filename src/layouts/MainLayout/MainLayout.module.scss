@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+}
+.sidebar {
+  width: 256px;
+  border: solid 1px #e4e4e4;
+  position: fixed;
+  height: 100%;
+}
+.wrapper {
+  width: calc(100% - 256px);
+  margin-left: 256px;
+
+}
+.header {
+  height: 90px;
+  border: solid 1px #e4e4e4;
+  position: fixed;
+  background-color: white;
+  z-index: 9999;
+  width: 1664px;
+
+}
+.content {
+  margin-top: 90px;
+  border: solid 1px #e4e4e4;
+  width: 1664px;
+}

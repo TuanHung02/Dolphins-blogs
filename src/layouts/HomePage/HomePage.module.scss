@@ -1,0 +1,27 @@
+.wrapper {
+  padding: 15px 34px;
+}
+.wrapper-posts {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.list-posts {
+  width: calc(100% - 327px);
+}
+.list-tags {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.trending-posts {
+  width: 427px;
+  margin-top: 47px;
+}
+.trending-posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+  justify-content: center;
+}

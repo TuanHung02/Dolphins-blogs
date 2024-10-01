@@ -1,0 +1,27 @@
+.custom-select select {
+  width: 126px;
+  appearance: none;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 23px;
+  background-color: rgba(108, 93, 211, 1);
+  color: #ffffff;
+  cursor: pointer;
+}
+.custom-select select option {
+    appearance: none;
+    border: none;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 11px 23px;
+    cursor: pointer;
+  }
+.custom-icon {
+  position: absolute;
+  bottom: 10px;
+  right: calc(100% - 108px);
+  color: white;
+}

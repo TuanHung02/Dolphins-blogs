@@ -1,0 +1,17 @@
+.App {
+  margin: 0 auto;
+  font-weight: normal;
+  background-color: white;
+  width: 1920px;
+}
+
+p {
+  margin: 0 !important;
+}
+
+.custom-dot{
+  font-size: 25px;
+  color: rgba(255, 117, 76, 1);
+  line-height: 0;
+}
+
