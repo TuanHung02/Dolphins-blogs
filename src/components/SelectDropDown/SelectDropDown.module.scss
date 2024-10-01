@@ -10,6 +10,12 @@
   color: #ffffff;
   cursor: pointer;
 }
+.custom-select select:hover {
+ 
+    box-shadow: 5px 10px 18px #b4b1b1;
+    transition: 0.5s;
+  
+}
 .custom-select select option {
     appearance: none;
     border: none;

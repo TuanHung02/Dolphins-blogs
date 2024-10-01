@@ -19,7 +19,7 @@ const HomePage = () => {
             const author = authors.find((au) => au.id === post.authorId);
             return (
               <div key={post.id}>
-                <PostComponent post={post} author={author} TAG={TAG} />
+                <PostComponent post={post} author={author} />
               </div>
             );
           })}

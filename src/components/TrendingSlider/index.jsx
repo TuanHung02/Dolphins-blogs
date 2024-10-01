@@ -106,6 +106,7 @@ import styles from "./TrendingSlider.module.scss";
 import React from "react";
 import Slider from "react-slick";
 import { channels } from "../../constants/constant";
+import ConvertNumberComponent from "../ConvertNumberComponent";
 
 function SampleNextArrow(props) {
   const { onClick } = props;
@@ -243,7 +244,7 @@ export default function SimpleSlider() {
                     color: "rgba(128, 129, 145, 1)",
                   }}
                 >
-                  {channel.viewers} viewers
+                 <ConvertNumberComponent num={channel.viewers}/> viewers
                 </p>
               </div>
             </div>

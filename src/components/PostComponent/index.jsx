@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./PostComponent.module.scss";
+import { TAG } from "../../constants/constant";
 
-const PostComponent = ({ post, author, TAG }) => {
+const PostComponent = ({ post, author }) => {
+  const [bookMarkPost, setBookMarkPost] = useState(false);
+
+  const toggleBookMark = () => {
+    setBookMarkPost((prevState) => !prevState);
+  };
+
   return (
     <div key={post.id} className={styles.post}>
       <div className={styles["author-profile"]}>
@@ -37,6 +44,7 @@ const PostComponent = ({ post, author, TAG }) => {
             style={{
               fontSize: "18px",
               fontWeight: "500",
+              cursor: "pointer",
             }}
           >
             {post.title}
@@ -47,6 +55,7 @@ const PostComponent = ({ post, author, TAG }) => {
               fontWeight: "600",
               color: "rgba(128, 129, 145, 1)",
               paddingTop: "10px",
+              cursor: "pointer",
             }}
           >
             {post.description}
@@ -83,7 +92,11 @@ const PostComponent = ({ post, author, TAG }) => {
         <div className={styles["post-img"]}>
           {post.img && (
             <img
-              style={{ borderRadius: "16px", margin: " 0 24px 0 42px" }}
+              style={{
+                borderRadius: "16px",
+                margin: " 0 24px 0 42px",
+                cursor: "pointer",
+              }}
               src={post.img}
               alt="post img"
               width={255}
@@ -104,6 +117,22 @@ const PostComponent = ({ post, author, TAG }) => {
         <div className={styles["post-reaction-item"]}>
           <i className="fa-solid fa-comment"></i> <p>{post.comment}</p>
         </div>
+      </div>
+
+      <div className={styles["btn-archive"]}>
+        {bookMarkPost ? (
+          <i
+            style={{ color: "rgba(251, 204, 19, 1)" }}
+            onClick={toggleBookMark}
+            className="fa-solid fa-bookmark"
+          ></i>
+        ) : (
+          <i
+            style={{ color: "rgba(128, 129, 145, 1)" }}
+            onClick={toggleBookMark}
+            className="fa-regular fa-bookmark"
+          ></i>
+        )}
       </div>
     </div>
   );

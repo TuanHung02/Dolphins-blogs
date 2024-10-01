@@ -1,5 +1,5 @@
 .tag {
-  min-width: 558px;
+  min-width: 545px;
   height: 77px;
   border-radius: 16px;
   background-color: rgba(228, 228, 228, 0.4978);
@@ -7,6 +7,11 @@
   align-items: center;
   justify-content: space-between;
   padding:  8px 25px 8px 5px;
+  cursor: pointer;
+}
+.tag:hover{
+  box-shadow: 5px 10px 18px #c5c5c5;
+  transition: 0.3s;
 }
 .tag-info {
   display: flex;

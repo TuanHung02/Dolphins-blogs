@@ -1,4 +1,24 @@
 import avt from "../assets/avt1.jpg";
+import avt2 from "../assets/avt2.jpg";
+
+import avt3 from "../assets/avt3.jpg";
+
+import avt4 from "../assets/avt4.jpg";
+
+import avt5 from "../assets/avt5.jpg";
+
+import avt6 from "../assets/avt6.jpg";
+
+import avt7 from "../assets/avt7.jpg";
+
+import avt8 from "../assets/avt8.jpg";
+
+import avt9 from "../assets/avt9.jpg";
+
+import avt10 from "../assets/avt10.jpg";
+
+import avt11 from "../assets/avt11.jpg";
+
 
 export const channels = [
   {
@@ -15,7 +35,7 @@ export const channels = [
   },
   {
     id: 2,
-    avt: avt,
+    avt: avt2,
     name: "Audi 2",
     status: "Call of Duty",
     viewers: 2800,
@@ -27,7 +47,7 @@ export const channels = [
   },
   {
     id: 3,
-    avt: avt,
+    avt: avt3,
     name: "BMW 3",
     status: "Call of Duty",
     viewers: 2800,
@@ -39,7 +59,7 @@ export const channels = [
   },
   {
     id: 4,
-    avt: avt,
+    avt: avt4,
     name: "Mercerdes 4",
     status: "Call of Duty",
     viewers: 2800,
@@ -51,7 +71,7 @@ export const channels = [
   },
   {
     id: 5,
-    avt: avt,
+    avt: avt5,
     name: "Porsche 5",
     status: "Call of Duty",
     viewers: 2800,
@@ -75,7 +95,7 @@ export const channels = [
   },
   {
     id: 7,
-    avt: avt,
+    avt: avt5,
     name: "Ferrari 7",
     status: "Call of Duty",
     viewers: 2800,
@@ -87,7 +107,7 @@ export const channels = [
   },
   {
     id: 8,
-    avt: avt,
+    avt: avt2,
     name: "Bently 8",
     status: "Call of Duty",
     viewers: 2800,
@@ -111,31 +131,31 @@ export const TAG = {
 export const tags = [
   {
     id: 1,
-    img: avt,
+    img: avt10,
     label: "js",
-    articles: "2800",
+    articles: "1200000",
   },
   {
     id: 2,
-    img: avt,
+    img: avt8,
     label: "node",
-    articles: "2800",
+    articles: "340000",
   },
   {
     id: 3,
-    img: avt,
+    img: avt9,
     label: "vue",
-    articles: "2800",
+    articles: "28500",
   },
   {
     id: 4,
-    img: avt,
+    img: avt7,
     label: "agl",
-    articles: "2800",
+    articles: "7800",
   },
   {
     id: 5,
-    img: avt,
+    img: avt11,
     label: "next",
     articles: "2800",
   },
@@ -149,12 +169,12 @@ export const authors = [
   },
   {
     id: 2,
-    avt: avt,
+    avt: avt2,
     name: "Bùi Tuấn Hùng",
   },
   {
     id: 3,
-    avt: avt,
+    avt: avt3,
     name: "Nguyễn Văn Bê",
   },
 ];
@@ -163,7 +183,7 @@ export const posts = [
   {
     id: 1,
     authorId: 1,
-    img: avt,
+    img: avt6,
     timeAgo: 12,
     title: "Why You Should Use Node.js for Ecommerce: Pros and Cons",
     description:

@@ -7,7 +7,11 @@ const PostTrending = ({ post, author, TAG }) => {
       <div className={styles["post-img"]}>
         {post.img && (
           <img
-            style={{ borderRadius: "16px 16px 0 0", width: "100%" }}
+            style={{
+              borderRadius: "16px 16px 0 0",
+              width: "100%",
+              cursor: "pointer",
+            }}
             src={post.img}
             alt="post img"
             height={140}
@@ -19,6 +23,8 @@ const PostTrending = ({ post, author, TAG }) => {
           style={{
             fontSize: "18px",
             fontWeight: "500",
+            cursor: "pointer",
+            
           }}
         >
           {post.title}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./TagTrending.module.scss";
 import { TAG } from "../../constants/constant";
+import ConvertNumberComponent from "../ConvertNumberComponent";
 
 const TagTrending = ({ tag }) => {
   const [isCheck, setIsCheck] = useState(false);
@@ -38,7 +39,7 @@ const TagTrending = ({ tag }) => {
                 fontWeight: "600",
               }}
             >
-              {tag.articles} Articles this week
+            <ConvertNumberComponent num={tag.articles}/> Articles this week
             </p>
           </div>
         </div>

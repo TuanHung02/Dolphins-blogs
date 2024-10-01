@@ -4,11 +4,10 @@ import HeaderComponent from "../../components/HeaderComponent";
 import styles from "./MainLayout.module.scss";
 import HomePage from "../HomePage";
 
-
 const MainLayout = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.sidebar}>
+      <div className={styles["sidebar"]}>
         <SidebarComponent />
       </div>
       <div className={styles["wrapper"]}>

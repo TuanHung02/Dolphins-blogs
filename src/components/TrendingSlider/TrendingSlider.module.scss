@@ -6,6 +6,10 @@
   position: relative;
   user-select: none; /* Ngăn chọn text khi kéo */
 }
+.channels-slider:hover {
+  box-shadow: 5px 10px 18px #e4e1e1;
+  transition: 0.5s;
+}
 .handle-slider {
   display: flex;
   align-items: center;
@@ -24,7 +28,9 @@
   align-items: center;
   justify-content: start;
   gap: 17px;
+  cursor: pointer;
 }
+
 .handle-click-slide {
   display: flex;
   align-items: center;
@@ -39,5 +45,3 @@
   color: white;
   background-color: #3f8cfd;
 }
-
-
