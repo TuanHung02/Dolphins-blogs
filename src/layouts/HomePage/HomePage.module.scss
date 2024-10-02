@@ -1,23 +1,26 @@
 .wrapper {
   padding: 15px 34px;
 }
+
 .wrapper-posts {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
+
 .list-posts {
   width: calc(100% - 327px);
   min-width: 300px;
   margin-right: 44px;
-
 }
+
 .list-tags {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   max-width: 1100px; /* Đảm bảo kích thước container phù hợp */
 }
+
 .list-rcms {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -29,13 +32,13 @@
   width: 427px;
   margin-top: 47px;
 }
+
 .trending-posts-list {
   display: flex;
   flex-direction: column;
   gap: 34px;
   justify-content: center;
 }
-
 
 @media screen and (max-width: 1150px) {
   .list-tags {

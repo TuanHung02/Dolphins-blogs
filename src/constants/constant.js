@@ -1,24 +1,14 @@
 import avt from "../assets/avt1.jpg";
 import avt2 from "../assets/avt2.jpg";
-
 import avt3 from "../assets/avt3.jpg";
-
 import avt4 from "../assets/avt4.jpg";
-
 import avt5 from "../assets/avt5.jpg";
-
 import avt6 from "../assets/avt6.jpg";
-
 import avt7 from "../assets/avt7.jpg";
-
 import avt8 from "../assets/avt8.jpg";
-
 import avt9 from "../assets/avt9.jpg";
-
 import avt10 from "../assets/avt10.jpg";
-
 import avt11 from "../assets/avt11.jpg";
-
 
 export const channels = [
   {

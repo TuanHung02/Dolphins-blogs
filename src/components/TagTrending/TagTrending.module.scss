@@ -18,13 +18,13 @@
   justify-content: start;
   gap: 16px;
 }
-.tag-label{
+.tag-label {
   display: flex;
   gap: 2px;
   align-items: center;
 }
-@media screen and (max-width: 1200px)  and (min-width: 1151px) {
- .tag-label{
-  display: none;
- }
+@media screen and (max-width: 1200px) and (min-width: 1151px) {
+  .tag-label {
+    display: none;
+  }
 }
