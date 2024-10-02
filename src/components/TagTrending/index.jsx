@@ -29,7 +29,7 @@ const TagTrending = ({ tag }) => {
           >
             {TAG[tag.label].label}
           </p>
-          <div className="d-flex gap-2 align-items-center">
+          <div className={styles['tag-label']}>
             <div className="custom-dot">•</div>
             <p
               style={{
