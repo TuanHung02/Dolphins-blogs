@@ -51,7 +51,7 @@ const HomePage = () => {
           >
             Recommend for you
           </p>
-          <div className={styles["list-tags"]}>
+          <div className={styles["list-rcms"]}>
             {channels.slice(0,3).map((channel) => {
               return (
                 <div key={channel.id}>

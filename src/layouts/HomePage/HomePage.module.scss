@@ -9,13 +9,22 @@
 .list-posts {
   width: calc(100% - 327px);
   min-width: 300px;
+  margin-right: 44px;
+
 }
 .list-tags {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 1100px; /* Đảm bảo kích thước container phù hợp */
 }
+.list-rcms {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 1100px; /* Đảm bảo kích thước container phù hợp */
+}
+
 .trending-posts {
   width: 427px;
   margin-top: 47px;
@@ -25,4 +34,23 @@
   flex-direction: column;
   gap: 34px;
   justify-content: center;
+}
+
+
+@media screen and (max-width: 1048px) {
+  .list-tags {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    max-width: 1100px;
+  }
+}
+
+@media screen and (max-width: 1386px) {
+  .list-rcms {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    max-width: 1100px;
+  }
 }
