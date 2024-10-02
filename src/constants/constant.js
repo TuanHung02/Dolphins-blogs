@@ -265,3 +265,11 @@ export const trendings = [
     tags: 23,
   },
 ];
+
+export const selectOptions = [
+  { value: "1", label: "1 Week" },
+  { value: "2", label: "1 Month" },
+  { value: "3", label: "3 Months" },
+  { value: "4", label: "6 Months" },
+  { value: "5", label: "1 Year" },
+];

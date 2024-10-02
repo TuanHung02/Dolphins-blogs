@@ -15,7 +15,7 @@ const RecommendChannels = ({ channel }) => {
       ></img>
       <div className={styles["channel-info"]}>
         <div className={styles["channel-item"]}>
-          <p style={{ fontSize: "18px", fontWeight: "700" }}>{channel.name}</p>
+          <p className={styles["channel-name"]}>{channel.name}</p>
           <div className={styles["post-reactions"]}>
             <div className={styles["post-reaction-item"]}>
               <i className="fa-regular fa-eye"></i>
@@ -27,10 +27,10 @@ const RecommendChannels = ({ channel }) => {
           </div>
         </div>
         <div className={styles["channel-item"]}>
-          <p style={{ fontSize: "14px", fontWeight: "600" }}>
+          <p style={{ fontSize: "13px", fontWeight: "600" }}>
             <ConvertNumberComponent num={channel.followers} /> followers
           </p>
-          <p style={{ fontSize: "14px", fontWeight: "600" }}>
+          <p style={{ fontSize: "13px", fontWeight: "600" }}>
             <ConvertNumberComponent num={channel.videos} /> videos
           </p>
         </div>

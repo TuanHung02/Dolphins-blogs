@@ -45,3 +45,8 @@
   color: white;
   background-color: #3f8cfd;
 }
+@media screen and (max-width: 1024px) {
+  .channels-profile {
+    flex-direction: column;
+  }
+}

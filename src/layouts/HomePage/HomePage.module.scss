@@ -8,6 +8,7 @@
 }
 .list-posts {
   width: calc(100% - 327px);
+  min-width: 270px;
 }
 .list-tags {
   display: flex;

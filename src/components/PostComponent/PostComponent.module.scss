@@ -20,6 +20,7 @@
   justify-content: start;
   gap: 11px;
   margin-top: 10px;
+  flex-wrap: wrap;
 }
 .post-tag-item {
   font-size: 13px;
@@ -70,10 +71,14 @@
 }
 
 .post-img {
+  margin-left: 30px;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-archive{
+.btn-archive {
   position: absolute;
   right: 25px;
   top: 16px;
@@ -83,7 +88,26 @@
     line-height: 0;
   }
 }
-.btn-archive:hover{
+.btn-archive:hover {
   box-shadow: 5px 10px 18px #cccccc;
   transition: 0.5s;
+}
+
+.post-main {
+  display: flex;
+}
+@media screen and (max-width: 1180px) {
+  .post-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 0;
+  }
 }

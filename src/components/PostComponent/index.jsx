@@ -38,7 +38,7 @@ const PostComponent = ({ post, author }) => {
           </p>
         </div>
       </div>
-      <div style={{ display: "flex" }}>
+      <div className={styles["post-main"]}>
         <div className={styles["post-content"]}>
           <p
             style={{
@@ -94,7 +94,6 @@ const PostComponent = ({ post, author }) => {
             <img
               style={{
                 borderRadius: "16px",
-                margin: " 0 24px 0 42px",
                 cursor: "pointer",
               }}
               src={post.img}

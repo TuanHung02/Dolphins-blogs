@@ -7,6 +7,7 @@ import PostTrending from "../../components/PostTrending";
 import SelectDropDown from "../../components/SelectDropDown";
 import TrendingSlider from "../../components/TrendingSlider";
 import RecommendChannels from "../../components/RecommendChannels";
+import { selectOptions } from "../../constants/constant";
 
 const HomePage = () => {
   return (
@@ -62,7 +63,7 @@ const HomePage = () => {
         </div>
         <div className={styles["trending-posts"]}>
           <div>
-            <SelectDropDown />{" "}
+            <SelectDropDown options={selectOptions} placeholder="Select an option"/>{" "}
           </div>
           <p
             style={{
