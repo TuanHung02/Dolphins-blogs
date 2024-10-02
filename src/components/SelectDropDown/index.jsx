@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./SelectDropDown.module.scss";
 
 const SelectDropDown = ({ options, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const dropdownRef = useRef(null); // To reference the dropdown container
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   const handleOptionClick = (option) => {
@@ -14,8 +15,25 @@ const SelectDropDown = ({ options, placeholder }) => {
     setIsOpen(false);
   };
 
+  // Handle clicks outside of the dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Attach the event listener to detect clicks outside
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={styles["custom-select-container"]}>
+    <div className={styles["custom-select-container"]} ref={dropdownRef}>
       <div className={styles["custom-select-header"]} onClick={toggleDropdown}>
         {selectedOption ? selectedOption.label : options[0].label}
         <span
