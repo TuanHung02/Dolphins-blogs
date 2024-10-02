@@ -19,7 +19,7 @@ function SampleNextArrow(props) {
         height: "32px",
         position: "absolute",
         left: " calc(100% - 35px)",
-        bottom: "100px",
+        bottom: "calc(100% + 45px)",
       }}
       onClick={onClick}
     >
@@ -46,7 +46,7 @@ function SamplePrevArrow(props) {
         height: "32px",
         position: "absolute",
         left: "calc(100% - 70px)",
-        top: "-76px",
+        bottom: "calc(100% + 45px)",
       }}
       onClick={onClick}
     >

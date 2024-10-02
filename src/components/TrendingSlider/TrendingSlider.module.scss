@@ -5,6 +5,7 @@
   overflow: hidden; /* Ẩn phần tràn */
   position: relative;
   user-select: none; /* Ngăn chọn text khi kéo */
+  min-width: 450px;
 }
 .channels-slider:hover {
   box-shadow: 5px 10px 18px #e4e1e1;
