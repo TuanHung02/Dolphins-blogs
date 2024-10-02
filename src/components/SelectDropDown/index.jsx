@@ -3,7 +3,7 @@ import styles from "./SelectDropDown.module.scss";
 
 const SelectDropDown = ({ options, placeholder }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const dropdownRef = useRef(null); // To reference the dropdown container
 
   const toggleDropdown = () => {
