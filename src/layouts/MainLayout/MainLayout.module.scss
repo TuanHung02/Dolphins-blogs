@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  overflow-y: hidden;
 }
 .header {
   height: 90px;
@@ -18,4 +19,5 @@
 .content {
   width: calc(100%);
   max-width: 1620px;
+
 }
