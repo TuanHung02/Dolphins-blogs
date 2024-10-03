@@ -43,7 +43,7 @@ const CreatePost = () => {
                 <i class="fa-solid fa-italic"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
-                <i class="fa-solid fa-italic"></i>
+              <i class="fa-solid fa-link"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
                 <i class="fa-solid fa-list-ol"></i>
