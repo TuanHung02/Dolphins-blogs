@@ -37,22 +37,22 @@ const CreatePost = () => {
           <div className={styles["toolbar-bg"]}>
             <div className={`${styles["toolbar"]}`}>
               <button type="btn" className="btn btn-outline-secondary">
-                B
+                <i class="fa-solid fa-bold"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
-                I
+                <i class="fa-solid fa-italic"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
-                0
+                <i class="fa-solid fa-italic"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
-                1
+                <i class="fa-solid fa-list-ol"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
-                *
+                <i class="fa-solid fa-list-ul"></i>
               </button>
               <button type="btn" className="btn btn-outline-secondary">
-                H
+                <i class="fa-solid fa-heading"></i>
               </button>
             </div>
           </div>
