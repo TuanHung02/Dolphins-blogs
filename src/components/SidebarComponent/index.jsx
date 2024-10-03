@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./SidebarComponent.module.scss";
 import logo from "../../assets/logo.png";
 import { options, trendings } from "../../constants/constant";
+import { Link } from "react-router-dom";
 
 const SidebarComponent = () => {
   const [isOpen, setIsopen] = useState(true);
@@ -33,18 +34,23 @@ const SidebarComponent = () => {
           </div>
         </div>
         <div className={styles["option"]}>
-          {options.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => handleActiveOption(item.id)}
-              className={`${styles["option-item"]} ${
-                activeOptionId === item.id ? styles["option-item-active"] : ""
-              }`}
-            >
-              <i className={item.icon}></i>
-              <p>{item.title}</p>
-            </div>
-          ))}
+          {options.map((item) => {
+            return (
+              <Link  key={item.id} style={{textDecoration: 'none'}}   to={`${item.path}`}>
+                <div
+                  onClick={() => handleActiveOption(item.id)}
+                  className={`${styles["option-item"]} ${
+                    activeOptionId === item.id 
+                      ? styles["option-item-active"]
+                      : ""
+                  }`}
+                >
+                  <i className={item.icon}></i>
+                  <p>{item.title}</p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
         <div style={{ padding: "0px 20px" }}>
           <hr />
@@ -55,7 +61,7 @@ const SidebarComponent = () => {
           </p>
           {trendings.map((item) => (
             <div key={item.id} className={styles["trending-item"]}>
-              <p style={{cursor: "pointer"}}># {item.title}</p>
+              <p style={{ cursor: "pointer" }}># {item.title}</p>
               <div className={styles.tag}>{item.tags}</div>
             </div>
           ))}
@@ -65,7 +71,7 @@ const SidebarComponent = () => {
               gap: "5px",
               alignItems: "center",
               marginTop: "20px",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
           >
             <p>See All</p>
@@ -77,31 +83,30 @@ const SidebarComponent = () => {
     </div>
   ) : (
     <div className={styles.container} style={{ width: "55px" }}>
-       <div className={styles.wrapper} >
-      <div className={styles.logo}>
-        <div onClick={toggleSidebar} className={styles["btn-hide"]}>
-          <i
-            style={{ fontSize: "25px" }}
-            className="fa-solid fa-grip-lines"
-          ></i>
+      <div className={styles.wrapper}>
+        <div className={styles.logo}>
+          <div onClick={toggleSidebar} className={styles["btn-hide"]}>
+            <i
+              style={{ fontSize: "25px" }}
+              className="fa-solid fa-grip-lines"
+            ></i>
+          </div>
+        </div>
+        <div className={styles["option"]}>
+          {options.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => handleActiveOption(item.id)}
+              className={`${styles["option-item"]} ${
+                activeOptionId === item.id ? styles["option-item-active"] : ""
+              }`}
+            >
+              <i className={item.icon}></i>
+            </div>
+          ))}
         </div>
       </div>
-      <div className={styles["option"]}>
-        {options.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => handleActiveOption(item.id)}
-            className={`${styles["option-item"]} ${
-              activeOptionId === item.id ? styles["option-item-active"] : ""
-            }`}
-          >
-            <i className={item.icon}></i>
-          </div>
-        ))}
-      </div>
     </div>
-    </div>
-   
   );
 };
 

@@ -111,10 +111,13 @@ export const channels = [
 
 export const TAG = {
   js: { label: "JavaScript" },
-  node: { label: "Node JS" },
-  vue: { label: "Vue JS" },
+  node: { label: "NodeJS" },
+  vue: { label: "VueJS" },
   agl: { label: "Angular" },
   next: { label: "NextJS" },
+  react: { label: "ReactJS" },
+  flut: { label: "Flutter" },
+  doc: { label: "Docker" },
 };
 // console.log(Object.keys(TAG).includes("nextJS"));
 // Object.keys(TAG).includes("nextJS") && console.log(TAG["nextJS"]);
@@ -147,6 +150,24 @@ export const tags = [
     id: 5,
     img: avt11,
     label: "next",
+    articles: "2800",
+  },
+  {
+    id: 6,
+    img: avt,
+    label: "react",
+    articles: "2800",
+  },
+  {
+    id: 7,
+    img: avt7,
+    label: "flut",
+    articles: "2800",
+  },
+  {
+    id: 8,
+    img: avt8,
+    label: "doc",
     articles: "2800",
   },
 ];
@@ -216,21 +237,25 @@ export const options = [
     id: 1,
     title: "New Feed",
     icon: "fa-regular fa-font-awesome",
+    path:"/"
   },
   {
     id: 2,
     title: "Explore",
     icon: "fa-regular fa-compass",
+    path:"/explore"
   },
   {
     id: 3,
     title: "Bookmark",
     icon: "fa-regular fa-bookmark",
+    path:"/bookmark"
   },
   {
     id: 4,
     title: "My Posts",
     icon: "fa-regular fa-pen-to-square",
+    path:"/myposts"
   },
 ];
 export const trendings = [
@@ -262,4 +287,15 @@ export const selectOptions = [
   { value: "3", label: "3 Months" },
   { value: "4", label: "6 Months" },
   { value: "5", label: "1 Year" },
+];
+
+export const tagItems = [
+  "# Javascript ",
+  "# React JS",
+  "# Node JS",
+  "# Vue JS",
+  "# Angular",
+  "# Docker",
+  "# TypeScript",
+  "# Dot Net",
 ];
