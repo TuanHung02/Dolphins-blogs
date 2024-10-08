@@ -84,7 +84,7 @@ const CreatePost = () => {
 
               <MultipleSelect items={tagItems} onChange={handleSelectTags} />
             </div>
-            <MarkdownEditor onChange={handleMarkdownChange} />
+            {/* <MarkdownEditor onChange={handleMarkdownChange} /> */}
             <MarkdownToolbar
               toolbarItems={toolbarItems}
               content={markdownContent}
