@@ -237,25 +237,25 @@ export const options = [
     id: 1,
     title: "New Feed",
     icon: "fa-regular fa-font-awesome",
-    path:"/"
+    path: "/",
   },
   {
     id: 2,
     title: "Explore",
     icon: "fa-regular fa-compass",
-    path:"/explore"
+    path: "/explore",
   },
   {
     id: 3,
     title: "Bookmark",
     icon: "fa-regular fa-bookmark",
-    path:"/bookmark"
+    path: "/bookmark",
   },
   {
     id: 4,
     title: "My Posts",
     icon: "fa-regular fa-pen-to-square",
-    path:"/myposts"
+    path: "/myposts",
   },
 ];
 export const trendings = [
@@ -291,11 +291,20 @@ export const selectOptions = [
 
 export const tagItems = [
   "# Javascript ",
-  "# React JS",
-  "# Node JS",
-  "# Vue JS",
+  "# ReactJS",
+  "# NodeJS",
+  "# VueJS",
   "# Angular",
   "# Docker",
   "# TypeScript",
-  "# Dot Net",
+  "# DotNet",
+];
+
+export const toolbarItems = [
+  { id: 1, icon: "fa-solid fa-bold", markdown: "**", wrap: true },
+  { id: 2, icon: "fa-solid fa-italic", markdown: "_", wrap: true },
+  // { id: 3, icon: "fa-solid fa-link", markdown: "[]", wrap: true },
+  { id: 4, icon: "fa-solid fa-list-ol", markdown: "1. ", wrap: false },
+  { id: 5, icon: "fa-solid fa-list-ul", markdown: "- ", wrap: false },
+  { id: 6, icon: "fa-solid fa-heading", markdown: "# ", wrap: false },
 ];

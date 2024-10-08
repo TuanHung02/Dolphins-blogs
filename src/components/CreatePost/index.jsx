@@ -1,78 +1,119 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./CreatePost.module.scss";
-import MultipleSelect from "../../MutipleSelect";
 import { tagItems } from "../../constants/constant";
+import { toolbarItems } from "../../constants/constant";
+import { marked } from "marked";
+import MultipleSelect from "../MutipleSelect";
+import MarkdownToolbar from "../Toolbar";
+import MarkdownEditor from "../MarkdownEditor";
 
 const CreatePost = () => {
-  const [markdownText, setMarkdownText] = useState("");
-  const handleInputChange = (e) => {
-    setMarkdownText(e.target.value);
+  const [markdownContent, setMarkdownContent] = useState("");
+  const [postTitle, setPostTitle] = useState("");
+  const [tagsSelected, setTagsSelected] = useState([]);
+  const [isEditStatus, setIsEditStatus] = useState(true);
+
+
+  // Hàm để lấy giá trị từ component MarkdownEditor
+  const handleMarkdownChange = (newValue) => {
+    setMarkdownContent(newValue); // Cập nhật giá trị markdown khi có thay đổi từ con
   };
+
+  const handleInputTitle = (e) => {
+    setPostTitle(e.target.value);
+  };
+
+  const handleSelectTags = (tags) => {
+    setTagsSelected(tags);
+  };
+
+  const toggleEdit = () => {
+    setIsEditStatus(true);
+  };
+
+  const togglePreview = () => {
+    setIsEditStatus(false);
+  };
+  useEffect(() => {
+    const savedMarkdown = localStorage.getItem("markdownContent");
+    if (savedMarkdown) {
+      setMarkdownContent(savedMarkdown);
+    }
+  }, []);
+
+  const handleSaveDraft = () => {
+    localStorage.setItem("markdownContent", markdownContent);
+    localStorage.setItem("postTitle", postTitle);
+    localStorage.setItem("tagsSelected", tagsSelected);
+    alert("Saved to localStorage!");
+  };
+
+  const handleSave = () => {
+    alert("Can't Save because this function does not working");
+  };
+
+  const convertMarkdownToHtml = () => {
+    return { __html: marked(markdownContent) };
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles["header"]}>
           <h5>Create Post</h5>
           <div>
-            <button type="btn" className="btn">
+            <button onClick={toggleEdit} type="btn" className="btn">
               Edit
             </button>
-            <button type="btn" className="btn">
+            <button onClick={togglePreview} type="btn" className="btn">
               Preview
             </button>
           </div>
         </div>
-        <div className={styles.content}>
-          <div className={`${styles["content-title"]} ${styles.wrapper}`}>
-            <div className={styles["btn-img"]}>Add a cover image</div>
+        {isEditStatus ? (
+          <div className={styles.content}>
+            <div className={`${styles["content-title"]} ${styles.wrapper}`}>
+              <div className={styles["btn-img"]}>Add a cover image</div>
 
-            <input
-              className={styles["input-title"]}
-              placeholder="New post title here..."
-            ></input>
+              <input
+                value={postTitle}
+                className={styles["input-title"]}
+                placeholder="New post title here..."
+                onChange={handleInputTitle}
+              ></input>
 
-            <MultipleSelect items={tagItems} />
+              <MultipleSelect items={tagItems} onChange={handleSelectTags} />
+            </div>
+            <MarkdownEditor onChange={handleMarkdownChange} />
+            <MarkdownToolbar
+              toolbarItems={toolbarItems}
+              content={markdownContent}
+              setContent={setMarkdownContent}
+            />
           </div>
-
-          <div className={styles["toolbar-bg"]}>
-            <div className={`${styles["toolbar"]}`}>
-              <button type="btn" className="btn btn-outline-secondary">
-                <i class="fa-solid fa-bold"></i>
-              </button>
-              <button type="btn" className="btn btn-outline-secondary">
-                <i class="fa-solid fa-italic"></i>
-              </button>
-              <button type="btn" className="btn btn-outline-secondary">
-              <i class="fa-solid fa-link"></i>
-              </button>
-              <button type="btn" className="btn btn-outline-secondary">
-                <i class="fa-solid fa-list-ol"></i>
-              </button>
-              <button type="btn" className="btn btn-outline-secondary">
-                <i class="fa-solid fa-list-ul"></i>
-              </button>
-              <button type="btn" className="btn btn-outline-secondary">
-                <i class="fa-solid fa-heading"></i>
-              </button>
+        ) : (
+          <div className={styles.content}>
+            <div className={`${styles["content-title"]} ${styles.wrapper}`}>
+              <div className={styles["input-title"]}>{postTitle}</div>
+              <div>{tagsSelected.join(", ")}</div>
+              <div
+                className={styles["markdown-content"]}
+                dangerouslySetInnerHTML={convertMarkdownToHtml()}
+              />
             </div>
           </div>
+        )}
 
-          <textarea
-            className={styles["content-markdown"]}
-            value={markdownText}
-            onChange={handleInputChange}
-            placeholder="Write your post content here..."
-          />
-        </div>
         <div className={styles["bottom"]}>
           <button
             style={{ backgroundColor: "rgb(59, 73, 223)", color: "white" }}
             type="btn"
             className="btn"
+            onClick={handleSave}
           >
             Save
           </button>
-          <button type="btn" className="btn">
+          <button onClick={handleSaveDraft} type="btn" className="btn">
             Save Draft
           </button>
         </div>

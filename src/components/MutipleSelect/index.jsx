@@ -1,60 +1,65 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./MutipleSelect.module.scss";
 
-const MultipleSelect = ({ items }) => {
+const MultipleSelect = ({ items, onChange }) => {  // Accept onChange prop
   const [selectedItems, setSelectedItems] = useState([]);
   const [filterText, setFilterText] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showMaxItemsMessage, setShowMaxItemsMessage] = useState(false); // Trạng thái cho thông báo đủ 4 item
-  const dropdownRef = useRef(null); // Ref để tham chiếu đến dropdown
+  const [showMaxItemsMessage, setShowMaxItemsMessage] = useState(false);
+  const dropdownRef = useRef(null);
 
   const filteredItems = items.filter((item) =>
     item.toLowerCase().includes(filterText.toLowerCase())
   );
 
   const toggleSelectItem = (item) => {
+    let newSelectedItems;
+    
     if (selectedItems.includes(item)) {
-      setSelectedItems(selectedItems.filter((i) => i !== item));
-      setShowMaxItemsMessage(false); // Ẩn thông báo khi xóa item
+      newSelectedItems = selectedItems.filter((i) => i !== item);
+      setShowMaxItemsMessage(false);
     } else if (selectedItems.length < 4) {
-      const newSelectedItems = [...selectedItems, item];
-      setSelectedItems(newSelectedItems);
+      newSelectedItems = [...selectedItems, item];
       if (newSelectedItems.length === 4) {
-        setDropdownOpen(false); // Tự động đóng dropdown khi chọn đủ 4 item
+        setDropdownOpen(false);
       }
     }
+
+    setSelectedItems(newSelectedItems);
+    onChange(newSelectedItems);  // Pass the selected items to the parent
   };
+
   const handleInputClick = (e) => {
-    e.stopPropagation(); // Ngăn sự kiện làm đóng dropdown
+    e.stopPropagation();
     if (selectedItems.length < 4) {
-      setDropdownOpen(true); // Chỉ mở khi chưa chọn đủ 4 item
-      setShowMaxItemsMessage(false); // Ẩn thông báo nếu dropdown mở lại
+      setDropdownOpen(true);
+      setShowMaxItemsMessage(false);
     } else {
-      setShowMaxItemsMessage(true); // Hiển thị thông báo khi đã đủ 4 item
+      setShowMaxItemsMessage(true);
     }
   };
 
   const removeSelectedItem = (item) => {
     const newSelectedItems = selectedItems.filter((i) => i !== item);
     setSelectedItems(newSelectedItems);
-    setShowMaxItemsMessage(false); // Ẩn thông báo khi xóa item
+    setShowMaxItemsMessage(false);
+    
     if (newSelectedItems.length < 4) {
-      setDropdownOpen(true); // Mở lại dropdown khi xóa một item
+      setDropdownOpen(true);
     }
+    onChange(newSelectedItems);  // Pass the updated selected items to the parent
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
-        setShowMaxItemsMessage(false); // Ẩn thông báo khi click outside
+        setShowMaxItemsMessage(false);
       }
     };
 
-    // Lắng nghe sự kiện click bên ngoài component
     document.addEventListener("mousedown", handleClickOutside);
 
-    // Cleanup sự kiện khi component unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -116,7 +121,6 @@ const MultipleSelect = ({ items }) => {
         </div>
       )}
 
-      {/* Hiển thị thông báo nếu đã chọn đủ 4 item */}
       {showMaxItemsMessage && (
         <div className="max-items-message">Only 4 selections allowed.</div>
       )}
