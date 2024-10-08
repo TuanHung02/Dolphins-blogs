@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, memo } from "react";
 import styles from "./MutipleSelect.module.scss";
 
-const MultipleSelect = ({ items, onChange }) => {  // Accept onChange prop
-  const [selectedItems, setSelectedItems] = useState([]);
+const MultipleSelect = ({tagsSelected, items, onChange }) => {
+  const [selectedItems, setSelectedItems] = useState(tagsSelected);
   const [filterText, setFilterText] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showMaxItemsMessage, setShowMaxItemsMessage] = useState(false);
@@ -14,7 +14,7 @@ const MultipleSelect = ({ items, onChange }) => {  // Accept onChange prop
 
   const toggleSelectItem = (item) => {
     let newSelectedItems;
-    
+
     if (selectedItems.includes(item)) {
       newSelectedItems = selectedItems.filter((i) => i !== item);
       setShowMaxItemsMessage(false);
@@ -43,7 +43,7 @@ const MultipleSelect = ({ items, onChange }) => {  // Accept onChange prop
     const newSelectedItems = selectedItems.filter((i) => i !== item);
     setSelectedItems(newSelectedItems);
     setShowMaxItemsMessage(false);
-    
+
     if (newSelectedItems.length < 4) {
       setDropdownOpen(true);
     }
@@ -128,4 +128,4 @@ const MultipleSelect = ({ items, onChange }) => {  // Accept onChange prop
   );
 };
 
-export default MultipleSelect;
+export default memo(MultipleSelect);  // Wrap the component with memo

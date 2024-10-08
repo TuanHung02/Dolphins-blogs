@@ -14,7 +14,10 @@ const MarkdownToolbar = ({ content, toolbarItems, setContent }) => {
 
   useEffect(() => {
     if (caretPosition !== null) {
-      textareaRef.current.setSelectionRange(caretPosition.start, caretPosition.end);
+      textareaRef.current.setSelectionRange(
+        caretPosition.start,
+        caretPosition.end
+      );
       textareaRef.current.focus();
     }
   }, [caretPosition]);
@@ -36,22 +39,25 @@ const MarkdownToolbar = ({ content, toolbarItems, setContent }) => {
 
   const applyMarkdown = (e, markdown, wrap) => {
     e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
-
+  
     const { start, end, selectedText } = getSelectedText();
     const before = content.substring(0, start);
     const after = content.substring(end, content.length);
-
+  
     let formattedText;
     let newCaretPositionStart;
     let newCaretPositionEnd;
-
+  
     if (selectedText) {
       // Khi có văn bản được chọn
       if (wrap) {
         formattedText = isFormattedWith(selectedText, markdown)
-          ? selectedText.slice(markdown.length, selectedText.length - markdown.length)
+          ? selectedText.slice(
+              markdown.length,
+              selectedText.length - markdown.length
+            )
           : markdown + selectedText + markdown;
-
+  
         newCaretPositionStart = start;
         newCaretPositionEnd = start + formattedText.length;
         setContent(before + formattedText + after);
@@ -63,31 +69,42 @@ const MarkdownToolbar = ({ content, toolbarItems, setContent }) => {
       }
     } else {
       // Khi không có văn bản được chọn
-      const currentLineStart = before.lastIndexOf("\n") + 1; // Vị trí bắt đầu của dòng hiện tại
-      const currentLine = content.substring(currentLineStart, start); // Nội dung của dòng hiện tại
-
-      if (markdown === "1. " || markdown === "- " || markdown === "# ") {
-        // Tắt/bật cho heading, ordered list, unordered list
+      if (["1. ", "- ", "# "].includes(markdown)) {
+        const currentLineStart = before.lastIndexOf("\n") + 1;
+        const currentLine = content.substring(currentLineStart, start);
+  
         const updatedLine = toggleMarkdownAtLineStart(currentLine, markdown);
         newCaretPositionStart = currentLineStart + markdown.length;
         newCaretPositionEnd = start + updatedLine.length - currentLine.length;
-
+  
         setContent(before.substring(0, currentLineStart) + updatedLine + after);
       } else {
-        // Các trường hợp bọc văn bản khác (ví dụ: **bold**)
-        formattedText = markdown + markdown;
-        newCaretPositionStart = start + markdown.length;
-        newCaretPositionEnd = newCaretPositionStart;
-        setContent(before + formattedText + after);
+        // Trường hợp bọc văn bản khác (ví dụ: **bold**)
+        const isToggling = content.substring(start - markdown.length, start) === markdown &&
+                           content.substring(end, end + markdown.length) === markdown;
+  
+        if (isToggling) {
+          // Nếu đã có markdown, xóa đi và di chuyển con trỏ về vị trí ban đầu
+          setContent(before.slice(0, start - markdown.length) + after.slice(markdown.length));
+          newCaretPositionStart = start - markdown.length;
+          newCaretPositionEnd = start - markdown.length;
+        } else {
+          // Thêm markdown mới và đặt con trỏ giữa
+          formattedText = markdown + markdown;
+          newCaretPositionStart = start + markdown.length;
+          newCaretPositionEnd = newCaretPositionStart;
+          setContent(before + formattedText + after);
+        }
       }
     }
-
+  
     // Đặt lại vị trí con trỏ hoặc vùng bôi đen
     setCaretPosition({
       start: newCaretPositionStart,
       end: newCaretPositionEnd,
     });
   };
+  
 
   return (
     <div>

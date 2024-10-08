@@ -5,7 +5,6 @@ import { toolbarItems } from "../../constants/constant";
 import { marked } from "marked";
 import MultipleSelect from "../MutipleSelect";
 import MarkdownToolbar from "../Toolbar";
-import MarkdownEditor from "../MarkdownEditor";
 
 const CreatePost = () => {
   const [markdownContent, setMarkdownContent] = useState("");
@@ -14,10 +13,6 @@ const CreatePost = () => {
   const [isEditStatus, setIsEditStatus] = useState(true);
 
 
-  // Hàm để lấy giá trị từ component MarkdownEditor
-  const handleMarkdownChange = (newValue) => {
-    setMarkdownContent(newValue); // Cập nhật giá trị markdown khi có thay đổi từ con
-  };
 
   const handleInputTitle = (e) => {
     setPostTitle(e.target.value);
@@ -82,7 +77,7 @@ const CreatePost = () => {
                 onChange={handleInputTitle}
               ></input>
 
-              <MultipleSelect items={tagItems} onChange={handleSelectTags} />
+              <MultipleSelect tagsSelected={tagsSelected} items={tagItems} onChange={handleSelectTags} />
             </div>
             {/* <MarkdownEditor onChange={handleMarkdownChange} /> */}
             <MarkdownToolbar
