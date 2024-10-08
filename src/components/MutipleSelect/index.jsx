@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./MutipleSelect.module.scss";
 
 const MultipleSelect = ({tagsSelected, items, onChange }) => {
@@ -65,6 +65,12 @@ const MultipleSelect = ({tagsSelected, items, onChange }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (tagsSelected && tagsSelected.length > 0) {
+      setSelectedItems(tagsSelected);
+    }
+  }, [tagsSelected]);
+
   return (
     <div className={styles["multiple-select"]} ref={dropdownRef}>
       <div className={styles["input-container"]}>
@@ -128,4 +134,4 @@ const MultipleSelect = ({tagsSelected, items, onChange }) => {
   );
 };
 
-export default memo(MultipleSelect);  // Wrap the component with memo
+export default MultipleSelect;  // Wrap the component with memo

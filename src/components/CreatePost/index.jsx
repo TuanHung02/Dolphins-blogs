@@ -12,8 +12,6 @@ const CreatePost = () => {
   const [tagsSelected, setTagsSelected] = useState([]);
   const [isEditStatus, setIsEditStatus] = useState(true);
 
-
-
   const handleInputTitle = (e) => {
     setPostTitle(e.target.value);
   };
@@ -22,19 +20,13 @@ const CreatePost = () => {
     setTagsSelected(tags);
   };
 
-  const toggleEdit = () => {
-    setIsEditStatus(true);
-  };
-
-  const togglePreview = () => {
-    setIsEditStatus(false);
-  };
-  useEffect(() => {
-    const savedMarkdown = localStorage.getItem("markdownContent");
-    if (savedMarkdown) {
-      setMarkdownContent(savedMarkdown);
+  const togglePostStatus = (stt) => {
+    if (stt === "edit") {
+      setIsEditStatus(true);
+    } else {
+      setIsEditStatus(false);
     }
-  }, []);
+  };
 
   const handleSaveDraft = () => {
     localStorage.setItem("markdownContent", markdownContent);
@@ -47,6 +39,22 @@ const CreatePost = () => {
     alert("Can't Save because this function does not working");
   };
 
+  useEffect(() => {
+    const savedMarkdown = localStorage.getItem("markdownContent");
+    const savedTitle = localStorage.getItem("postTitle");
+    const savedTags = localStorage.getItem("tagsSelected");
+
+    if (savedMarkdown) {
+      setMarkdownContent(savedMarkdown);
+    }
+    if (savedTitle) {
+      setPostTitle(savedTitle);
+    }
+    if (savedTags) {
+      setTagsSelected(savedTags.split(","));
+    }
+  }, []);
+
   const convertMarkdownToHtml = () => {
     return { __html: marked(markdownContent) };
   };
@@ -57,10 +65,10 @@ const CreatePost = () => {
         <div className={styles["header"]}>
           <h5>Create Post</h5>
           <div>
-            <button onClick={toggleEdit} type="btn" className="btn">
+            <button onClick={() => togglePostStatus('edit')} type="btn" className="btn">
               Edit
             </button>
-            <button onClick={togglePreview} type="btn" className="btn">
+            <button onClick={() => togglePostStatus('preview')} type="btn" className="btn">
               Preview
             </button>
           </div>
@@ -77,7 +85,11 @@ const CreatePost = () => {
                 onChange={handleInputTitle}
               ></input>
 
-              <MultipleSelect tagsSelected={tagsSelected} items={tagItems} onChange={handleSelectTags} />
+              <MultipleSelect
+                tagsSelected={tagsSelected}
+                items={tagItems}
+                onChange={handleSelectTags}
+              />
             </div>
             {/* <MarkdownEditor onChange={handleMarkdownChange} /> */}
             <MarkdownToolbar
