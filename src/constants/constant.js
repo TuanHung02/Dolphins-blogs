@@ -309,6 +309,6 @@ export const toolbarItems = [
   { id: 6, icon: "fa-solid fa-heading", markdown: "# ", wrap: false },
   // { id: 7, icon: "fa-solid fa-quote-left", markdown: "> ", wrap: false },
 
-  { id: 8, icon: "fa-solid fa-code", markdown: "`", wrap: true },
+  // { id: 8, icon: "fa-solid fa-code", markdown: "`", wrap: true },
 
 ];
