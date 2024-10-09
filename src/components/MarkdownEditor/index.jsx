@@ -1,76 +1,65 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
-const MarkdownEditor = ({ onChange }) => {
-  const [text, setText] = useState(''); // Quản lý nội dung của textarea
-  const [selection, setSelection] = useState({ start: null, end: null }); // Lưu vị trí bôi đen
-  const textareaRef = useRef(null); // Ref để lấy vị trí con trỏ trong textarea
+const MarkdownEditor = () => {
+  const [text, setText] = useState("");
 
-  // Hàm xử lý khi người dùng bôi đen văn bản
-  const handleSelect = () => {
-    const textarea = textareaRef.current;
+  const handleButtonClick = () => {
+    const textarea = document.getElementById("myTextarea");
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
 
-    // Lưu lại vị trí bôi đen
+    const prefix = "**"; // Ký tự bạn muốn thêm
+    const suffix = "**";
+
+    // Nếu có đoạn văn bản được bôi đen
     if (start !== end) {
-      setSelection({ start, end });
-    }
-  };
-
-  // Hàm chèn/loại bỏ bold
-  const handleBoldClick = () => {
-    const textarea = textareaRef.current;
-    const { start, end } = selection;
-
-    if (start !== null && end !== null && start !== end) {
       const selectedText = text.slice(start, end);
+      const isWrapped = text.slice(start - prefix.length, start) === prefix && text.slice(end, end + suffix.length) === suffix;
 
       let newText;
-      // Kiểm tra nếu text đã có ** ở đầu và cuối thì xóa chúng
-      if (selectedText.startsWith('**') && selectedText.endsWith('**')) {
-        newText = text.slice(0, start) + selectedText.slice(2, -2) + text.slice(end);
+      if (isWrapped) {
+        // Xóa ký tự nếu đã tồn tại
+        newText = text.slice(0, start - prefix.length) + selectedText + text.slice(end + suffix.length);
+        textarea.setSelectionRange(start - prefix.length, end - prefix.length); // Cập nhật vị trí con trỏ
       } else {
-        // Nếu chưa có **, thêm chúng vào đầu và cuối đoạn bôi đen
-        newText = text.slice(0, start) + `**${selectedText}**` + text.slice(end);
+        // Thêm ký tự nếu chưa có
+        newText = text.slice(0, start) + prefix + selectedText + suffix + text.slice(end);
+        textarea.setSelectionRange(start + prefix.length, end + suffix.length); // Cập nhật vị trí con trỏ
       }
 
       setText(newText);
-      onChange(newText);
+    } else {
+      // Nếu không có gì được bôi đen (chỉ thêm ký tự)
+      const isAfterPrefix = text.slice(start - prefix.length, start) === prefix;
+      const isAfterSuffix = text.slice(start, start + suffix.length) === suffix;
 
-      // Cập nhật lại vị trí con trỏ để giữ vùng bôi đen sau khi chỉnh sửa
-      const newEnd = end + 4; // Thêm 4 ký tự (2 ** ở đầu và 2 ** ở cuối)
-      setSelection({ start, end: newEnd });
+      let newText;
+      if (isAfterPrefix && isAfterSuffix) {
+        // Xóa ký tự nếu đã tồn tại
+        newText = text.slice(0, start - prefix.length) + text.slice(start + suffix.length);
+        textarea.setSelectionRange(start - prefix.length, start - prefix.length); // Đặt lại con trỏ
+      } else {
+        // Thêm ký tự vào vị trí con trỏ
+        newText = text.slice(0, start) + prefix + suffix + text.slice(start);
+        textarea.setSelectionRange(start + prefix.length, start + prefix.length); // Đặt con trỏ giữa hai ký tự
+      }
 
-      setTimeout(() => {
-        textarea.selectionStart = start;
-        textarea.selectionEnd = newEnd;
-      }, 0);
+      setText(newText);
     }
-  };
-
-  // Hàm để theo dõi thay đổi nội dung textarea
-  const handleChange = (e) => {
-    const newValue = e.target.value;
-    setText(newValue);
-    onChange(newValue);
   };
 
   return (
     <div>
-      <div className="toolbar">
-        <button onClick={handleBoldClick}><strong>B</strong></button>
-      </div>
       <textarea
-        ref={textareaRef}
+        id="myTextarea"
         value={text}
-        onChange={handleChange}
-        onSelect={handleSelect} // Gọi hàm handleSelect khi người dùng bôi đen văn bản
-        rows="10"
-        cols="50"
-        placeholder="Nhập markdown ở đây..."
+        onChange={(e) => setText(e.target.value)}
+        rows={10}
+        cols={50}
       />
+      <button onClick={handleButtonClick}>Thêm ký tự</button>
     </div>
   );
-};
+}
 
 export default MarkdownEditor;
