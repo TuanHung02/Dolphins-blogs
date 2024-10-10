@@ -5,12 +5,15 @@ import { toolbarItems } from "../../constants/constant";
 import { marked } from "marked";
 import MultipleSelect from "../MutipleSelect";
 import MarkdownToolbar from "../Toolbar";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [markdownContent, setMarkdownContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [tagsSelected, setTagsSelected] = useState([]);
   const [isEditStatus, setIsEditStatus] = useState(true);
+
+  const navigate = useNavigate();
 
   const handleInputTitle = (e) => {
     setPostTitle(e.target.value);
@@ -21,11 +24,8 @@ const CreatePost = () => {
   };
 
   const togglePostStatus = (stt) => {
-    if (stt === "edit") {
-      setIsEditStatus(true);
-    } else {
-      setIsEditStatus(false);
-    }
+      setIsEditStatus(stt === "edit");
+   
   };
 
   const handleSaveDraft = () => {
@@ -36,7 +36,23 @@ const CreatePost = () => {
   };
 
   const handleSave = () => {
-    alert("Can't Save because this function does not working");
+    const post = {
+      postTitle,
+      markdownContent,
+      tagsSelected,
+      date: new Date().toISOString(), // Bạn có thể thêm thời gian tạo bài viết
+    };
+
+    // Lấy mảng bài viết đã lưu từ localStorage
+    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+
+    // Thêm bài viết mới vào mảng
+    savedPosts.push(post);
+
+    // Lưu lại mảng vào localStorage
+    localStorage.setItem("posts", JSON.stringify(savedPosts));
+    navigate("/myposts");
+    alert("Post saved successfully!");
   };
 
   useEffect(() => {
@@ -65,10 +81,18 @@ const CreatePost = () => {
         <div className={styles["header"]}>
           <h5>Create Post</h5>
           <div>
-            <button onClick={() => togglePostStatus('edit')} type="btn" className="btn">
+            <button
+              onClick={() => togglePostStatus("edit")}
+              type="btn"
+              className={`btn ${isEditStatus ? styles.activebtn : "" }`}
+            >
               Edit
             </button>
-            <button onClick={() => togglePostStatus('preview')} type="btn" className="btn">
+            <button
+              onClick={() => togglePostStatus("preview")}
+              type="btn"
+              className={`btn ${!isEditStatus ? styles.activebtn : "" }`}
+            >
               Preview
             </button>
           </div>
