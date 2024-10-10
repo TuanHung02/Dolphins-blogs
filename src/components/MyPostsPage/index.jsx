@@ -11,7 +11,7 @@ const MyPostsPage = () => {
   }, []);
 
   return (
-    <div style={{ height: "100%", marginTop: "10px" }}>
+    <div style={{ height: 'calc(100vh - 156px)', marginTop: "10px" }}>
       <div style={{display: "flex", alignItems: 'center', justifyContent: 'space-between'}}>
         <h1>This is My Posts Page</h1>
         <Link to={`./create`}>
