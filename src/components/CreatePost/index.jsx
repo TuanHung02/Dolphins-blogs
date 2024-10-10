@@ -24,8 +24,7 @@ const CreatePost = () => {
   };
 
   const togglePostStatus = (stt) => {
-      setIsEditStatus(stt === "edit");
-   
+    setIsEditStatus(stt === "edit");
   };
 
   const handleSaveDraft = () => {
@@ -42,17 +41,25 @@ const CreatePost = () => {
       tagsSelected,
       date: new Date().toISOString(), // Bạn có thể thêm thời gian tạo bài viết
     };
+    if (
+      !post.postTitle ||
+      !post.markdownContent ||
+      post.tagsSelected.length === 0
+    ) {
+      alert("Post is missing some required information!");
+      return;
+    } else {
+      // Lấy mảng bài viết đã lưu từ localStorage
+      const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
 
-    // Lấy mảng bài viết đã lưu từ localStorage
-    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+      // Thêm bài viết mới vào mảng
+      savedPosts.push(post);
 
-    // Thêm bài viết mới vào mảng
-    savedPosts.push(post);
-
-    // Lưu lại mảng vào localStorage
-    localStorage.setItem("posts", JSON.stringify(savedPosts));
-    navigate("/myposts");
-    alert("Post saved successfully!");
+      // Lưu lại mảng vào localStorage
+      localStorage.setItem("posts", JSON.stringify(savedPosts));
+      navigate("/myposts");
+      alert("Post saved successfully!");
+    }
   };
 
   useEffect(() => {
@@ -84,14 +91,14 @@ const CreatePost = () => {
             <button
               onClick={() => togglePostStatus("edit")}
               type="btn"
-              className={`btn ${isEditStatus ? styles.activebtn : "" }`}
+              className={`btn ${isEditStatus ? styles.activebtn : ""}`}
             >
               Edit
             </button>
             <button
               onClick={() => togglePostStatus("preview")}
               type="btn"
-              className={`btn ${!isEditStatus ? styles.activebtn : "" }`}
+              className={`btn ${!isEditStatus ? styles.activebtn : ""}`}
             >
               Preview
             </button>

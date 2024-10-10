@@ -28,7 +28,7 @@ const MyPostsPage = () => {
           </div>
         ))
       ) : (
-        <p>No saved posts.</p>
+        <p style={{height: 'calc(100vh - 156px)'}} >No saved posts.</p>
       )}
     </div>
   );

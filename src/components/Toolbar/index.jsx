@@ -27,16 +27,6 @@ const MarkdownToolbar = ({ content, toolbarItems, setContent }) => {
     return selectedText.startsWith(markdown) && selectedText.endsWith(markdown);
   };
 
-  const toggleMarkdownAtLineStart = (line, markdown) => {
-    if (line.startsWith(markdown)) {
-      // Nếu dòng đã có ký tự Markdown, loại bỏ chúng
-      return line.slice(markdown.length);
-    } else {
-      // Nếu không có, thêm ký tự Markdown
-      return markdown + line;
-    }
-  };
-
   const applyMarkdown = (e, markdown, wrap) => {
     e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
 
