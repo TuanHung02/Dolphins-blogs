@@ -12,14 +12,13 @@ const MySavedPost = ({ post }) => {
       <header className={styles["post-header"]}>
         <div className={styles["avatar"]}>
           <img src="https://via.placeholder.com/50" alt="User Avatar" />
-          <span>Tuấn Hùng Bùi</span>
+          <span>Tuấn Hùng Bùi - {post.id}</span>
         </div>
         <div className={styles["post-actions"]}>
           <button className={styles["edit-btn"]}>Edit</button>
           <button className={styles["stats-btn"]}>Stats</button>
         </div>
       </header>
-
       <div className={styles["post-content"]}>
         <h1 className={styles["post-title"]}>{post.postTitle}</h1>
         <Hashtags tags={post.tagsSelected} />
@@ -28,7 +27,7 @@ const MySavedPost = ({ post }) => {
           dangerouslySetInnerHTML={convertMarkdownToHtml(post.markdownContent)}
         />
       </div>
-    <hr/>
+      <hr />
       <div className={styles["comments-section"]}>
         <div className={styles["comment-box"]}>
           <h3>Top comments (0)</h3>

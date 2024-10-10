@@ -35,11 +35,14 @@ const CreatePost = () => {
   };
 
   const handleSave = () => {
+    const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
+    const newId = savedPosts.length > 0 ? savedPosts.length + 1 : 1;
     const post = {
+      id: newId,
       postTitle,
       markdownContent,
       tagsSelected,
-      date: new Date().toISOString(), // Bạn có thể thêm thời gian tạo bài viết
+      date: new Date().toISOString(),
     };
     if (
       !post.postTitle ||
@@ -49,13 +52,7 @@ const CreatePost = () => {
       alert("Post is missing some required information!");
       return;
     } else {
-      // Lấy mảng bài viết đã lưu từ localStorage
-      const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
-
-      // Thêm bài viết mới vào mảng
       savedPosts.push(post);
-
-      // Lưu lại mảng vào localStorage
       localStorage.setItem("posts", JSON.stringify(savedPosts));
       navigate("/myposts");
       alert("Post saved successfully!");
@@ -122,7 +119,6 @@ const CreatePost = () => {
                 onChange={handleSelectTags}
               />
             </div>
-            {/* <MarkdownEditor onChange={handleMarkdownChange} /> */}
             <MarkdownToolbar
               toolbarItems={toolbarItems}
               content={markdownContent}

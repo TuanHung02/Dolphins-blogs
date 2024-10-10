@@ -23,8 +23,8 @@ const MyPostsPage = () => {
       </div>
 
       {savedPosts.length > 0 ? (
-        savedPosts.map((post, index) => (
-          <div key={index}>
+        savedPosts.map((post) => (
+          <div key={post.id}>
             <MySavedPost post={post} />
           </div>
         ))
