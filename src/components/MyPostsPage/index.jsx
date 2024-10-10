@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MySavedPost from "../MySavedPost";
+import styles from './MyPostsPage.module.scss'
 
 const MyPostsPage = () => {
   const [savedPosts, setSavedPosts] = useState([]);
@@ -11,7 +12,7 @@ const MyPostsPage = () => {
   }, []);
 
   return (
-    <div style={{ height: 'calc(100vh - 100px)', marginTop: "10px" }}>
+    <div className={styles.container}>
       <div style={{display: "flex", alignItems: 'center', justifyContent: 'space-between'}}>
         <h1>This is My Posts Page</h1>
         <Link to={`./create`}>
@@ -28,7 +29,7 @@ const MyPostsPage = () => {
           </div>
         ))
       ) : (
-        <p style={{height: 'calc(100vh - 156px)'}}>No saved posts.</p>
+        <p >No saved posts.</p>
       )}
     </div>
   );
