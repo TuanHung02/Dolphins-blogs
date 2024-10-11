@@ -29,7 +29,7 @@ const MyPostsPage = () => {
           </div>
         ))
       ) : (
-        <p >No saved posts.</p>
+        <p>No saved posts.</p>
       )}
     </div>
   );

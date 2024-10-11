@@ -12,7 +12,7 @@ const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [tagsSelected, setTagsSelected] = useState([]);
   const [isEditStatus, setIsEditStatus] = useState(true);
-
+   
   const navigate = useNavigate();
 
   const handleInputTitle = (e) => {
@@ -31,6 +31,7 @@ const CreatePost = () => {
     localStorage.setItem("markdownContent", markdownContent);
     localStorage.setItem("postTitle", postTitle);
     localStorage.setItem("tagsSelected", tagsSelected);
+    navigate("/myposts");
     alert("Saved to localStorage!");
   };
 
@@ -42,7 +43,7 @@ const CreatePost = () => {
       postTitle,
       markdownContent,
       tagsSelected,
-      date: new Date().toISOString(),
+      date: new Date().toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', year: 'numeric', month: '2-digit', day: '2-digit' })
     };
     if (
       !post.postTitle ||
@@ -54,6 +55,9 @@ const CreatePost = () => {
     } else {
       savedPosts.push(post);
       localStorage.setItem("posts", JSON.stringify(savedPosts));
+      localStorage.removeItem("markdownContent");
+      localStorage.removeItem("postTitle");
+      localStorage.removeItem("tagsSelected");
       navigate("/myposts");
       alert("Post saved successfully!");
     }
