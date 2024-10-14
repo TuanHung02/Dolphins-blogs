@@ -26,6 +26,7 @@ const MultipleSelect = ({tagsSelected, items, onChange }) => {
     }
 
     setSelectedItems(newSelectedItems);
+    setFilterText("")
     onChange(newSelectedItems);  // Pass the selected items to the parent
   };
 
@@ -91,7 +92,7 @@ const MultipleSelect = ({tagsSelected, items, onChange }) => {
           ))}
           <input
             type="text"
-            placeholder={`${selectedItems.length >= 4 ? "" : "Add another..."}`}
+            placeholder={`${selectedItems.length >= 4 ? "" : selectedItems.length === 0 ? "Add up to 4 tags..." : "Add another..."  }`}
             value={filterText}
             onChange={(e) => setFilterText(e.target.value)}
             onClick={handleInputClick}

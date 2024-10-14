@@ -29,7 +29,8 @@
 }
 
 .remove-item {
-  margin-left: 10px;
+  margin-left: 15px;
+  margin-right: 3px;
   cursor: pointer;
   font-weight: bold;
 }
@@ -50,13 +51,13 @@
 
 .dropdown-body {
   background: white;
-  border: 1px solid #ccc;
+  border: 1px solid #ececec;
   border-radius: 4px;
   width: calc(100%);
   z-index: 1;
   max-height: 200px;
   overflow-y: auto;
-
+  overflow-x: hidden;
   h6{
     font-weight: bold;
     padding: 14px 10px 8px 10px; 

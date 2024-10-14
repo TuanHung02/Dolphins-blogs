@@ -6,13 +6,14 @@ import { marked } from "marked";
 import MultipleSelect from "../MutipleSelect";
 import MarkdownToolbar from "../Toolbar";
 import { useNavigate } from "react-router-dom";
+import MarkdownEditor from "./../MarkdownEditor/index";
 
 const CreatePost = () => {
   const [markdownContent, setMarkdownContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [tagsSelected, setTagsSelected] = useState([]);
   const [isEditStatus, setIsEditStatus] = useState(true);
-   
+
   const navigate = useNavigate();
 
   const handleInputTitle = (e) => {
@@ -43,7 +44,13 @@ const CreatePost = () => {
       postTitle,
       markdownContent,
       tagsSelected,
-      date: new Date().toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', year: 'numeric', month: '2-digit', day: '2-digit' })
+      date: new Date().toLocaleString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }),
     };
     if (
       !post.postTitle ||
@@ -123,11 +130,15 @@ const CreatePost = () => {
                 onChange={handleSelectTags}
               />
             </div>
-            <MarkdownToolbar
-              toolbarItems={toolbarItems}
+            <MarkdownEditor
               content={markdownContent}
               setContent={setMarkdownContent}
             />
+            {/* <MarkdownToolbar
+              toolbarItems={toolbarItems}
+              content={markdownContent}
+              setContent={setMarkdownContent}
+            /> */}
           </div>
         ) : (
           <div className={styles.content}>

@@ -40,8 +40,8 @@ const MySavedPost = ({ post }) => {
       <hr />
       <div className={styles["comments-section"]}>
         <div className={styles["comment-box"]}>
-          <h3>Top comments (0)</h3>
-          <button>Unsubscribe</button>
+          <h4 style={{fontWeight: 'bold'}}>Top comments (0)</h4>
+          {/* <button>Unsubscribe</button> */}
         </div>
         <div className={styles["comment-box"]}>
           <input type="text" placeholder="Add to the discussion" />
