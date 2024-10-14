@@ -12,6 +12,11 @@ const MarkdownEditor = ({ content, setContent }) => {
     return { start, end, selectedText: textarea.value.substring(start, end) };
   };
 
+  const handleInputChange = (e) => {
+    const textarea = e.target
+    setContent(textarea.value)
+  }
+
   useEffect(() => {
     if (caretPosition !== null) {
       textareaRef.current.setSelectionRange(
@@ -29,15 +34,15 @@ const MarkdownEditor = ({ content, setContent }) => {
 
   const setBold = (e, markdown) => {
     e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
-
+  
     const { start, end, selectedText } = getSelectedText();
     const before = content.substring(0, start);
     const after = content.substring(end, content.length);
-
+  
     let formattedText;
     let newCaretPositionStart;
     let newCaretPositionEnd;
-
+  
     if (selectedText) {
       // Khi có văn bản được chọn
       formattedText = isFormattedWith(selectedText, markdown)
@@ -45,40 +50,42 @@ const MarkdownEditor = ({ content, setContent }) => {
             markdown.length,
             selectedText.length - markdown.length
           )
-        : markdown + selectedText + markdown;
-
-      newCaretPositionStart = start;
-      newCaretPositionEnd = start + formattedText.length;
+        : " " + markdown + selectedText + markdown; // Thêm dấu cách trước markdown
+  
+      newCaretPositionStart = start + 1; // Dịch con trỏ về sau 1 vị trí vì có dấu cách
+      newCaretPositionEnd = newCaretPositionStart + formattedText.length - 1;
       setContent(before + formattedText + after);
     } else {
-      // Trường hợp bọc văn bản khác (ví dụ: **bold**)
+      // Trường hợp không có văn bản được chọn
       const isToggling =
-        content.substring(start - markdown.length, start) === markdown &&
+        content.substring(start - markdown.length - 1, start) === " " + markdown &&
         content.substring(end, end + markdown.length) === markdown;
-
+  
       if (isToggling) {
-        // Nếu đã có markdown, xóa đi và di chuyển con trỏ về vị trí ban đầu
+        // Nếu đã có markdown và dấu cách, xóa đi cả dấu cách và markdown
         setContent(
-          before.slice(0, start - markdown.length) +
-            after.slice(markdown.length)
+          before.slice(0, start - markdown.length - 1) +
+          after.slice(markdown.length)
         );
-        newCaretPositionStart = start - markdown.length;
-        newCaretPositionEnd = start - markdown.length;
+        newCaretPositionStart = start - markdown.length - 1;
+        newCaretPositionEnd = start - markdown.length - 1;
       } else {
-        // Thêm markdown mới và đặt con trỏ giữa
-        formattedText = markdown + markdown;
-        newCaretPositionStart = start + markdown.length;
+        // Thêm markdown mới với dấu cách trước markdown
+        formattedText = " " + markdown + markdown;
+        newCaretPositionStart = start + markdown.length + 1; // Con trỏ sau dấu cách và trước markdown
         newCaretPositionEnd = newCaretPositionStart;
         setContent(before + formattedText + after);
       }
     }
-
+  
     // Đặt lại vị trí con trỏ hoặc vùng bôi đen
     setCaretPosition({
       start: newCaretPositionStart,
       end: newCaretPositionEnd,
     });
   };
+  
+  
   const setList = (e, markdown) => {
     e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
 
@@ -250,7 +257,7 @@ const MarkdownEditor = ({ content, setContent }) => {
         className={styles["content-markdown"]}
         ref={textareaRef}
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onInput={(e) => handleInputChange(e)}
         placeholder="Write your post content here..."
       />
     </div>
@@ -258,3 +265,4 @@ const MarkdownEditor = ({ content, setContent }) => {
 };
 
 export default MarkdownEditor;
+  

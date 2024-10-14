@@ -4,7 +4,6 @@ import styles from "./Toolbar.module.scss";
 const MarkdownToolbar = ({ content, toolbarItems, setContent }) => {
   const textareaRef = useRef(null);
   const [caretPosition, setCaretPosition] = useState(null);
-  const [headingClicks, setHeadingClicks] = useState(0); // Lưu số lần nhấn vào heading
 
   const getSelectedText = () => {
     const textarea = textareaRef.current;
@@ -120,7 +119,6 @@ const MarkdownToolbar = ({ content, toolbarItems, setContent }) => {
           }
         }
       }
-    
 
     // Đặt lại vị trí con trỏ hoặc vùng bôi đen
     setCaretPosition({

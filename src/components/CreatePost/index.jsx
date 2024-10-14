@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./CreatePost.module.scss";
 import { tagItems } from "../../constants/constant";
-import { toolbarItems } from "../../constants/constant";
 import { marked } from "marked";
 import MultipleSelect from "../MutipleSelect";
-import MarkdownToolbar from "../Toolbar";
+// import MarkdownToolbar from "../Toolbar";
 import { useNavigate } from "react-router-dom";
 import MarkdownEditor from "./../MarkdownEditor/index";
 
