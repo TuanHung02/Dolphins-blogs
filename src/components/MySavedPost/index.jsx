@@ -10,6 +10,9 @@ const MySavedPost = ({ post }) => {
   const date = new Date(post.date);
   return (
     <div className={styles["post-container"]}>
+      {post.image && (
+        <img src={post.image} alt="Cover" className={styles["img-markdown"]} />
+      )}
       <header className={styles["post-header"]}>
         <div className={styles["avatar"]}>
           <img src="https://via.placeholder.com/50" alt="User Avatar" />
@@ -40,7 +43,7 @@ const MySavedPost = ({ post }) => {
       <hr />
       <div className={styles["comments-section"]}>
         <div className={styles["comment-box"]}>
-          <h4 style={{fontWeight: 'bold'}}>Top comments (0)</h4>
+          <h4 style={{ fontWeight: "bold" }}>Top comments (0)</h4>
           {/* <button>Unsubscribe</button> */}
         </div>
         <div className={styles["comment-box"]}>

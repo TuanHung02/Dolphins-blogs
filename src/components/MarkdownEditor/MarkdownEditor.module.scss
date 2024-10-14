@@ -26,9 +26,11 @@
     width: calc(100% - 120px);
     margin: 30px 60px;
     border: none;
-    min-height: 300px;
     outline: 0;
-    
+    resize: none;
+    box-sizing: border-box;
+    overflow: hidden;
+
   }
   @media screen and (max-width: 850px) {
     .toolbar {

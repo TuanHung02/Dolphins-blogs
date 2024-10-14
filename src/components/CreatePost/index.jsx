@@ -12,6 +12,7 @@ const CreatePost = () => {
   const [postTitle, setPostTitle] = useState("");
   const [tagsSelected, setTagsSelected] = useState([]);
   const [isEditStatus, setIsEditStatus] = useState(true);
+  const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -31,8 +32,24 @@ const CreatePost = () => {
     localStorage.setItem("markdownContent", markdownContent);
     localStorage.setItem("postTitle", postTitle);
     localStorage.setItem("tagsSelected", tagsSelected);
+    localStorage.setItem("image", image);
     navigate("/myposts");
     alert("Saved to localStorage!");
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result); // Lưu URL ảnh để hiển thị
+      };
+      reader.readAsDataURL(file); // Đọc file ảnh
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setImage(null); // Xóa ảnh hiện tại
   };
 
   const handleSave = () => {
@@ -50,6 +67,7 @@ const CreatePost = () => {
         month: "2-digit",
         day: "2-digit",
       }),
+      image,
     };
     if (
       !post.postTitle ||
@@ -64,6 +82,8 @@ const CreatePost = () => {
       localStorage.removeItem("markdownContent");
       localStorage.removeItem("postTitle");
       localStorage.removeItem("tagsSelected");
+      localStorage.removeItem("image");
+
       navigate("/myposts");
       alert("Post saved successfully!");
     }
@@ -73,6 +93,7 @@ const CreatePost = () => {
     const savedMarkdown = localStorage.getItem("markdownContent");
     const savedTitle = localStorage.getItem("postTitle");
     const savedTags = localStorage.getItem("tagsSelected");
+    const image = localStorage.getItem("image");
 
     if (savedMarkdown) {
       setMarkdownContent(savedMarkdown);
@@ -82,6 +103,9 @@ const CreatePost = () => {
     }
     if (savedTags) {
       setTagsSelected(savedTags.split(","));
+    }
+    if (image) {
+      setImage(image);
     }
   }, []);
 
@@ -114,15 +138,54 @@ const CreatePost = () => {
         {isEditStatus ? (
           <div className={styles.content}>
             <div className={`${styles["content-title"]} ${styles.wrapper}`}>
-              <div className={styles["btn-img"]}>Add a cover image</div>
-
+              <div>
+                {!image ? (
+                  <label htmlFor="upload-input" className={styles["btn-img"]}>
+                    Add a cover image
+                  </label>
+                ) : (
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "50px",
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt="Cover"
+                      style={{ width: "200px", height: "auto" }}
+                    />
+                    <div style={{ marginTop: "10px" }}>
+                      <label
+                        htmlFor="upload-input"
+                        className={styles["btn-img"]}
+                      >
+                        Change
+                      </label>
+                      <button
+                        onClick={handleRemoveImage}
+                        className={styles["btn-img-remove"]}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <input
+                  id="upload-input"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+              </div>
               <input
                 value={postTitle}
                 className={styles["input-title"]}
                 placeholder="New post title here..."
                 onChange={handleInputTitle}
               ></input>
-
               <MultipleSelect
                 tagsSelected={tagsSelected}
                 items={tagItems}
@@ -141,6 +204,9 @@ const CreatePost = () => {
           </div>
         ) : (
           <div className={styles.content}>
+            {image && (
+              <img src={image} alt="Cover" className={styles["img-markdown"]} />
+            )}
             <div className={`${styles["content-title"]} ${styles.wrapper}`}>
               <div className={styles["input-title"]}>{postTitle}</div>
               <div>{tagsSelected.join(", ")}</div>

@@ -4,6 +4,7 @@ import styles from "./MarkdownEditor.module.scss";
 const MarkdownEditor = ({ content, setContent }) => {
   const textareaRef = useRef(null);
   const [caretPosition, setCaretPosition] = useState(null);
+  const [textareaHeight, setTextareaHeight] = useState("auto");
 
   const getSelectedText = () => {
     const textarea = textareaRef.current;
@@ -13,9 +14,14 @@ const MarkdownEditor = ({ content, setContent }) => {
   };
 
   const handleInputChange = (e) => {
-    const textarea = e.target
-    setContent(textarea.value)
-  }
+    const textarea = e.target;
+    setTextareaHeight("auto");
+
+    // Đặt chiều cao theo chiều cao thực của nội dung (scrollHeight)
+    setTextareaHeight(`${textarea.scrollHeight}px`);
+
+    setContent(textarea.value);
+  };
 
   useEffect(() => {
     if (caretPosition !== null) {
@@ -34,18 +40,18 @@ const MarkdownEditor = ({ content, setContent }) => {
 
   const setBold = (e, markdown) => {
     e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
-  
+
     const { start, end, selectedText } = getSelectedText();
     const before = content.substring(0, start);
     const after = content.substring(end, content.length);
-  
+
     let formattedText;
     let newCaretPositionStart;
     let newCaretPositionEnd;
-  
+
     // Kiểm tra ký tự ngay trước vị trí con trỏ
     const charBeforeCursor = content[start - 1];
-  
+
     if (selectedText) {
       // Khi có văn bản được chọn
       formattedText = isFormattedWith(selectedText, markdown)
@@ -53,44 +59,62 @@ const MarkdownEditor = ({ content, setContent }) => {
             markdown.length,
             selectedText.length - markdown.length
           )
-        : (charBeforeCursor && charBeforeCursor !== ' ' ? " " : "") + markdown + selectedText + markdown; // Thêm dấu cách trước markdown nếu cần
-  
-      newCaretPositionStart = start + (charBeforeCursor && charBeforeCursor !== ' ' ? 1 : 0); // Dịch con trỏ nếu có thêm dấu cách
-      newCaretPositionEnd = newCaretPositionStart + formattedText.length - (charBeforeCursor && charBeforeCursor !== ' ' ? 1 : 0);
+        : (charBeforeCursor && charBeforeCursor !== " " ? " " : "") +
+          markdown +
+          selectedText +
+          markdown; // Thêm dấu cách trước markdown nếu cần
+
+      newCaretPositionStart =
+        start + (charBeforeCursor && charBeforeCursor !== " " ? 1 : 0); // Dịch con trỏ nếu có thêm dấu cách
+      newCaretPositionEnd =
+        newCaretPositionStart +
+        formattedText.length -
+        (charBeforeCursor && charBeforeCursor !== " " ? 1 : 0);
       setContent(before + formattedText + after);
     } else {
       // Trường hợp không có văn bản được chọn
       const isToggling =
-        content.substring(start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0), start) ===
-          (charBeforeCursor === ' ' ? " " : "") + markdown &&
+        content.substring(
+          start - markdown.length - (charBeforeCursor === " " ? 1 : 0),
+          start
+        ) ===
+          (charBeforeCursor === " " ? " " : "") + markdown &&
         content.substring(end, end + markdown.length) === markdown;
-  
+
       if (isToggling) {
         // Nếu đã có markdown và dấu cách, xóa đi cả dấu cách và markdown
         setContent(
-          before.slice(0, start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0)) +
-          after.slice(markdown.length)
+          before.slice(
+            0,
+            start - markdown.length - (charBeforeCursor === " " ? 1 : 0)
+          ) + after.slice(markdown.length)
         );
-        newCaretPositionStart = start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0);
-        newCaretPositionEnd = start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0);
+        newCaretPositionStart =
+          start - markdown.length - (charBeforeCursor === " " ? 1 : 0);
+        newCaretPositionEnd =
+          start - markdown.length - (charBeforeCursor === " " ? 1 : 0);
       } else {
         // Thêm markdown mới với dấu cách trước markdown nếu cần
-        formattedText = (charBeforeCursor && charBeforeCursor !== ' ' ? " " : "") + markdown + markdown;
-        newCaretPositionStart = start + markdown.length + (charBeforeCursor && charBeforeCursor !== ' ' ? 1 : 0); // Con trỏ sau dấu cách và trước markdown
+        formattedText =
+          (charBeforeCursor && charBeforeCursor !== " " ? " " : "") +
+          markdown +
+          markdown;
+        newCaretPositionStart =
+          start +
+          markdown.length +
+          (charBeforeCursor && charBeforeCursor !== " " ? 1 : 0); // Con trỏ sau dấu cách và trước markdown
         newCaretPositionEnd = newCaretPositionStart;
         setContent(before + formattedText + after);
       }
     }
-  
+
     // Đặt lại vị trí con trỏ hoặc vùng bôi đen
     setCaretPosition({
       start: newCaretPositionStart,
       end: newCaretPositionEnd,
     });
   };
-  
-  
-  
+
   const setList = (e, markdown) => {
     e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
 
@@ -261,6 +285,7 @@ const MarkdownEditor = ({ content, setContent }) => {
       <textarea
         className={styles["content-markdown"]}
         ref={textareaRef}
+        style={{ height: textareaHeight }}
         value={content}
         onInput={(e) => handleInputChange(e)}
         placeholder="Write your post content here..."
@@ -270,4 +295,3 @@ const MarkdownEditor = ({ content, setContent }) => {
 };
 
 export default MarkdownEditor;
-  
