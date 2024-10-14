@@ -7,7 +7,7 @@ const MySavedPost = ({ post }) => {
     return { __html: marked(markdownContent) };
   };
 
-  const date = new Date(post.date);
+  // const date = new Date(post.date);
   return (
     <div className={styles["post-container"]}>
       {post.image && (

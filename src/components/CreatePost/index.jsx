@@ -154,7 +154,7 @@ const CreatePost = () => {
                     <img
                       src={image}
                       alt="Cover"
-                      style={{ width: "200px", height: "auto" }}
+                      style={{ width: "250px", height: "105", margin:"0 20px" }}
                     />
                     <div style={{ marginTop: "10px" }}>
                       <label
