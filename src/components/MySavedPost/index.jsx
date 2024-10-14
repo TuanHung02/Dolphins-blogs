@@ -18,9 +18,10 @@ const MySavedPost = ({ post }) => {
           <img src="https://via.placeholder.com/50" alt="User Avatar" />
           <div>
             <p style={{ fontWeight: "bold" }}>Tuấn Hùng Bùi - {post.id}</p>
-            <p>{`${date.getHours()}:${date.getMinutes()} - ${date.getUTCDate()}/${
+            <p>...</p>
+            {/* <p>{`${date.getHours()}:${date.getMinutes()} - ${date.getUTCDate()}/${
               date.getUTCMonth() + 1
-            }/${date.getUTCFullYear()}`}</p>
+            }/${date.getUTCFullYear()}`}</p> */}
           </div>
         </div>
         <div className={styles["post-actions"]}>
