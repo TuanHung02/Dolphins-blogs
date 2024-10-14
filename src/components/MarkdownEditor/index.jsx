@@ -17,7 +17,7 @@ const MarkdownEditor = ({ content, setContent }) => {
     // Đặt chiều cao theo chiều cao thực của nội dung (scrollHeight)
     setContent(textarea.value);
   };
-  
+
   const adjustHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -25,7 +25,7 @@ const MarkdownEditor = ({ content, setContent }) => {
       textarea.style.height = `${textarea.scrollHeight}px`; // Cập nhật chiều cao dựa trên nội dung
     }
   };
-  
+
   useEffect(() => {
     adjustHeight();
   }, [content]);
