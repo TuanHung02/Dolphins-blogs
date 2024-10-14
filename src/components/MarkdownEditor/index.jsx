@@ -4,7 +4,6 @@ import styles from "./MarkdownEditor.module.scss";
 const MarkdownEditor = ({ content, setContent }) => {
   const textareaRef = useRef(null);
   const [caretPosition, setCaretPosition] = useState(null);
-  const [textareaHeight, setTextareaHeight] = useState("auto");
 
   const getSelectedText = () => {
     const textarea = textareaRef.current;
@@ -15,13 +14,21 @@ const MarkdownEditor = ({ content, setContent }) => {
 
   const handleInputChange = (e) => {
     const textarea = e.target;
-    setTextareaHeight("auto");
-
     // Đặt chiều cao theo chiều cao thực của nội dung (scrollHeight)
-    setTextareaHeight(`${textarea.scrollHeight}px`);
-
     setContent(textarea.value);
   };
+  
+  const adjustHeight = () => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto"; // Đặt lại chiều cao về auto để tính chiều cao thực
+      textarea.style.height = `${textarea.scrollHeight}px`; // Cập nhật chiều cao dựa trên nội dung
+    }
+  };
+  
+  useEffect(() => {
+    adjustHeight();
+  }, [content]);
 
   useEffect(() => {
     if (caretPosition !== null) {
@@ -285,7 +292,6 @@ const MarkdownEditor = ({ content, setContent }) => {
       <textarea
         className={styles["content-markdown"]}
         ref={textareaRef}
-        style={{ height: textareaHeight }}
         value={content}
         onInput={(e) => handleInputChange(e)}
         placeholder="Write your post content here..."

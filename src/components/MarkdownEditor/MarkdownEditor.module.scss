@@ -30,7 +30,8 @@
     resize: none;
     box-sizing: border-box;
     overflow: hidden;
-
+    min-height: 100px;
+    
   }
   @media screen and (max-width: 850px) {
     .toolbar {
