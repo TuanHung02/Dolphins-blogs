@@ -43,6 +43,9 @@ const MarkdownEditor = ({ content, setContent }) => {
     let newCaretPositionStart;
     let newCaretPositionEnd;
   
+    // Kiểm tra ký tự ngay trước vị trí con trỏ
+    const charBeforeCursor = content[start - 1];
+  
     if (selectedText) {
       // Khi có văn bản được chọn
       formattedText = isFormattedWith(selectedText, markdown)
@@ -50,29 +53,30 @@ const MarkdownEditor = ({ content, setContent }) => {
             markdown.length,
             selectedText.length - markdown.length
           )
-        : " " + markdown + selectedText + markdown; // Thêm dấu cách trước markdown
+        : (charBeforeCursor && charBeforeCursor !== ' ' ? " " : "") + markdown + selectedText + markdown; // Thêm dấu cách trước markdown nếu cần
   
-      newCaretPositionStart = start + 1; // Dịch con trỏ về sau 1 vị trí vì có dấu cách
-      newCaretPositionEnd = newCaretPositionStart + formattedText.length - 1;
+      newCaretPositionStart = start + (charBeforeCursor && charBeforeCursor !== ' ' ? 1 : 0); // Dịch con trỏ nếu có thêm dấu cách
+      newCaretPositionEnd = newCaretPositionStart + formattedText.length - (charBeforeCursor && charBeforeCursor !== ' ' ? 1 : 0);
       setContent(before + formattedText + after);
     } else {
       // Trường hợp không có văn bản được chọn
       const isToggling =
-        content.substring(start - markdown.length - 1, start) === " " + markdown &&
+        content.substring(start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0), start) ===
+          (charBeforeCursor === ' ' ? " " : "") + markdown &&
         content.substring(end, end + markdown.length) === markdown;
   
       if (isToggling) {
         // Nếu đã có markdown và dấu cách, xóa đi cả dấu cách và markdown
         setContent(
-          before.slice(0, start - markdown.length - 1) +
+          before.slice(0, start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0)) +
           after.slice(markdown.length)
         );
-        newCaretPositionStart = start - markdown.length - 1;
-        newCaretPositionEnd = start - markdown.length - 1;
+        newCaretPositionStart = start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0);
+        newCaretPositionEnd = start - markdown.length - (charBeforeCursor === ' ' ? 1 : 0);
       } else {
-        // Thêm markdown mới với dấu cách trước markdown
-        formattedText = " " + markdown + markdown;
-        newCaretPositionStart = start + markdown.length + 1; // Con trỏ sau dấu cách và trước markdown
+        // Thêm markdown mới với dấu cách trước markdown nếu cần
+        formattedText = (charBeforeCursor && charBeforeCursor !== ' ' ? " " : "") + markdown + markdown;
+        newCaretPositionStart = start + markdown.length + (charBeforeCursor && charBeforeCursor !== ' ' ? 1 : 0); // Con trỏ sau dấu cách và trước markdown
         newCaretPositionEnd = newCaretPositionStart;
         setContent(before + formattedText + after);
       }
@@ -84,6 +88,7 @@ const MarkdownEditor = ({ content, setContent }) => {
       end: newCaretPositionEnd,
     });
   };
+  
   
   
   const setList = (e, markdown) => {
