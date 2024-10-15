@@ -28,13 +28,18 @@ const CreatePost = () => {
     setIsEditStatus(stt === "edit");
   };
 
-  const handleSaveDraft = () => {
-    localStorage.setItem("markdownContent", markdownContent);
-    localStorage.setItem("postTitle", postTitle);
-    localStorage.setItem("tagsSelected", tagsSelected);
-    localStorage.setItem("image", image);
-    navigate("/myposts");
-    alert("Saved to localStorage!");
+  const handleSave = () => {
+    if (!markdownContent && !postTitle && tagsSelected.length === 0) {
+      alert("Post is empty!");
+      return;
+    } else {
+      localStorage.setItem("markdownContent", markdownContent);
+      localStorage.setItem("postTitle", postTitle);
+      localStorage.setItem("tagsSelected", tagsSelected);
+      localStorage.setItem("image", image);
+      // navigate("/myposts");
+      alert("Saved");
+    }
   };
 
   const handleImageChange = (e) => {
@@ -49,10 +54,10 @@ const CreatePost = () => {
   };
 
   const handleRemoveImage = () => {
-    setImage(null); // Xóa ảnh hiện tại
+    setImage("null"); // Xóa ảnh hiện tại
   };
 
-  const handleSave = () => {
+  const handleSaveDraft = () => {
     const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
     const newId = savedPosts.length > 0 ? savedPosts.length + 1 : 1;
     const post = {
@@ -139,7 +144,7 @@ const CreatePost = () => {
           <div className={styles.content}>
             <div className={`${styles["content-title"]} ${styles.wrapper}`}>
               <div>
-                {!image ? (
+                {image === "null" || !image ? (
                   <label htmlFor="upload-input" className={styles["btn-img"]}>
                     Add a cover image
                   </label>
@@ -148,13 +153,17 @@ const CreatePost = () => {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "50px",
                     }}
                   >
                     <img
                       src={image}
-                      alt="Cover"
-                      style={{ width: "250px", height: "105", margin:"0 20px" }}
+                      alt="cover"
+                      style={{
+                        width: "250px",
+                        height: "105px",
+                        margin: "0 20px",
+                        objectFit: 'contain'
+                      }}
                     />
                     <div style={{ marginTop: "10px" }}>
                       <label
@@ -204,8 +213,10 @@ const CreatePost = () => {
           </div>
         ) : (
           <div className={styles.content}>
-            {image && (
+            {image !== "null" ? (
               <img src={image} alt="Cover" className={styles["img-markdown"]} />
+            ) : (
+              <div></div>
             )}
             <div className={`${styles["content-title"]} ${styles.wrapper}`}>
               <div className={styles["input-title"]}>{postTitle}</div>
