@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import styles from "./CreatePost.module.scss";
+import styles from "./EditPost.module.scss";
 import { tagItems } from "../../constants/constant";
 import { marked } from "marked";
 import MultipleSelect from "../MutipleSelect";
 // import MarkdownToolbar from "../Toolbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import MarkdownEditor from "./../MarkdownEditor/index";
 
-const CreatePost = () => {
-  const [markdownContent, setMarkdownContent] = useState("");
-  const [postTitle, setPostTitle] = useState("");
-  const [tagsSelected, setTagsSelected] = useState([]);
+const EditPost = () => {
+  const { id } = useParams(); // Lấy id từ URL
+
+  const posts = JSON.parse(localStorage.getItem("posts")); 
+  const post = posts.find((post) => post.id === parseInt(id));
+
+  const [markdownContent, setMarkdownContent] = useState(post.markdownContent);
+  const [postTitle, setPostTitle] = useState(post.postTitle);
+  const [tagsSelected, setTagsSelected] = useState(post.tagsSelected);
   const [isEditStatus, setIsEditStatus] = useState(true);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(post.image);
 
   const navigate = useNavigate();
 
@@ -37,7 +42,6 @@ const CreatePost = () => {
       localStorage.setItem("postTitle", postTitle);
       localStorage.setItem("tagsSelected", tagsSelected);
       localStorage.setItem("image", image);
-      // navigate("/myposts");
       alert("Saved");
     }
   };
@@ -54,43 +58,39 @@ const CreatePost = () => {
   };
 
   const handleRemoveImage = () => {
-    setImage("null");
+    setImage("null"); 
   };
 
   const handleSaveDraft = () => {
     const savedPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    const newId = savedPosts.length > 0 ? savedPosts.length + 1 : 1;
-    const post = {
-      id: newId,
-      postTitle,
-      markdownContent,
-      tagsSelected,
-      date: new Date().toLocaleString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }),
-      image,
-    };
-    if (
-      !post.postTitle ||
-      !post.markdownContent ||
-      post.tagsSelected.length === 0
-    ) {
+
+    const updatedPosts = savedPosts.map((savedPost) => {
+      if (savedPost.id === post.id) {
+        return {
+          ...savedPost,
+          postTitle,
+          markdownContent,
+          tagsSelected,
+          date: new Date().toLocaleString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }),
+          image,
+        };
+      }
+      return savedPost;
+    });
+
+    if (!postTitle || !markdownContent || tagsSelected.length === 0) {
       alert("Post is missing some required information!");
       return;
     } else {
-      savedPosts.push(post);
-      localStorage.setItem("posts", JSON.stringify(savedPosts));
-      localStorage.removeItem("markdownContent");
-      localStorage.removeItem("postTitle");
-      localStorage.removeItem("tagsSelected");
-      localStorage.removeItem("image");
-
+      localStorage.setItem("posts", JSON.stringify(updatedPosts));
       navigate("/myposts");
-      alert("Post saved successfully!");
+      alert("Post updated successfully!");
     }
   };
 
@@ -122,7 +122,7 @@ const CreatePost = () => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div className={styles["header"]}>
-          <h5>Create Post</h5>
+          <h5>Edit Post</h5>
           <div>
             <button
               onClick={() => togglePostStatus("edit")}
@@ -162,7 +162,7 @@ const CreatePost = () => {
                         width: "250px",
                         height: "105px",
                         margin: "0 20px",
-                        objectFit: 'contain'
+                        objectFit: "contain",
                       }}
                     />
                     <div style={{ marginTop: "10px" }}>
@@ -247,4 +247,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;

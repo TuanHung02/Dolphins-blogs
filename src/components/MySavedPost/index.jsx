@@ -1,11 +1,17 @@
 import React from "react";
 import styles from "./MySavedPost.module.scss";
 import { marked } from "marked";
+import { useNavigate } from "react-router-dom";
 
 const MySavedPost = ({ post }) => {
   const convertMarkdownToHtml = (markdownContent) => {
     return { __html: marked(markdownContent) };
   };
+  const navigate = useNavigate();
+ 
+  const handleEditPost = (id) => {    
+    navigate(`/myposts/edit/${id}`);
+  } 
 
   // const date = new Date(post.date);
   return (
@@ -25,7 +31,7 @@ const MySavedPost = ({ post }) => {
           </div>
         </div>
         <div className={styles["post-actions"]}>
-          <button type="btn" className="btn ">
+          <button type="btn" className="btn" onClick={() => handleEditPost(post.id)}>
             Edit
           </button>
           <button type="btn" className="btn ">
@@ -56,7 +62,6 @@ const MySavedPost = ({ post }) => {
   );
 };
 
-// Component Hashtags
 const Hashtags = ({ tags }) => {
   return (
     <div className={styles["hashtags"]}>

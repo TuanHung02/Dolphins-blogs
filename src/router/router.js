@@ -5,6 +5,7 @@ import ExplorePage from "./../components/ExplorePage/index";
 import MyPostsPage from "./../components/MyPostsPage/index";
 import BookMarkPage from "./../components/BookMarkPage/index";
 import CreatePost from "../components/CreatePost/index";
+import EditPost from './../components/EditPost/index';
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/myposts/create",
         element: <CreatePost />,
+      },
+      {
+        path: "/myposts/edit/:id",
+        element: <EditPost />,
       },
     ],
   },

@@ -27,7 +27,7 @@ const MarkdownEditor = ({ content, setContent }) => {
   };
 
   useEffect(() => {
-    adjustHeight();
+    adjustHeight(); 
   }, [content]);
 
   useEffect(() => {
@@ -123,7 +123,7 @@ const MarkdownEditor = ({ content, setContent }) => {
   };
 
   const setList = (e, markdown) => {
-    e.preventDefault(); // Ngăn sự kiện mặc định của nút bấm
+    e.preventDefault(); 
 
     const { start, end, selectedText } = getSelectedText();
     const before = content.substring(0, start);
